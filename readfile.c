@@ -5,10 +5,11 @@
 #include "readfile.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-char* readfile() {
+char* readfile(char *name) {
     FILE *file;
-    file = fopen("dictionnaire.txt", "r");
+    file = fopen(name, "r");
     if (file != NULL) {
         fseek(file, 0, SEEK_END);
         int filesize = ftell(file);
@@ -22,4 +23,19 @@ char* readfile() {
         return buf;
     }
     return "";
+}
+
+void splittext(char* text, arbre* tree){
+    int i;
+    line tmpline;
+    char *token;
+    while (token != NULL) {
+        token = strtok(text, "\t");
+        tmpline.flechie = token;
+        token = strtok(NULL, "\t");
+        tmpline.base = token;
+        token = strtok(NULL, "\n");
+        tmpline.type = token;
+    }
+    //void addtostruct(tmpline)
 }
