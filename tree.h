@@ -10,9 +10,9 @@ struct s_letter{
     char letter;
     listeFlechi* liste;
     struct s_letter* next;
-}
+};
 
-typedef s_letter t_letter;
+typedef struct s_letter t_letter;
 
 
 typedef struct {
