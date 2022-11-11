@@ -6,8 +6,14 @@
 
 #include <stdio.h>
 
-char* readfile();
+typedef struct {
+    char* flechie;
+    char* base;
+    char* type;
+} line;
 
+char* readfile(char* name);
+void splittext(char* text);
 
 #define UNTITLED4_READFILE_H
 
