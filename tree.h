@@ -6,24 +6,29 @@
 #define MAIN_C_TREE_H
 #include "formeflechie.h"
 
-struct s_letter{
+
+struct s_node {
     char letter;
     listeFlechi* liste;
     int nbNext;
-    struct s_letter* next;
+    struct s_node** next;
 };
 
-typedef struct s_letter t_letter;
+typedef struct s_node t_node, *p_node;
 
 typedef struct {
-    t_letter* root;
+    int nbRoot;
+    p_node* root;
 }tree;
 
 typedef struct {
-    t_letter* adj;
-    t_letter* nom;
-    t_letter* adverbe;
-    t_letter* verbe;
+    tree adj;
+    tree nom;
+    tree adverbe;
+    tree verbe;
 } allTree;
+
+t_node newNode(char c);
+listeFlechi addWord(t_node* pn, char* word, x);
 
 #endif //MAIN_C_TREE_H

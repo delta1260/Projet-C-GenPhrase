@@ -17,10 +17,6 @@ motFlechi initmotf(char* mot, char* personne, char* nombre, char* temps){
 }
 
 void addmf(listeFlechi* liste, motFlechi mot){
-    if (liste == NULL){
-        liste->tab = malloc(30*sizeof(motFlechi));
-        liste->nbmots=0;
-    }
     liste->tab[liste->nbmots] = mot;
     ++(liste->nbmots);
 }

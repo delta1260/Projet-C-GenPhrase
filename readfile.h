@@ -19,15 +19,8 @@ char* readfile(char* name);
 void splittext(char* text);
 
 
-typedef struct {
-    int values[NBMAX];
-    int nbElts;
-    listeFlechi* liste;
-} rWord;
-
-rWord CreateEmptyWord();
-void findWord(t_letter myLetter);
-t_letter randomNumber(t_letter myLetter);
+listeFlechi findWord(t_node myLetter);
+t_node randomNumber(t_node myLetter);
 #define UNTITLED4_READFILE_H
 
 #endif //UNTITLED4_READFILE_H

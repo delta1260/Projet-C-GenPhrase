@@ -43,23 +43,29 @@ void splittext(char* text){
         token = strtok(NULL, "\n");
         tmpline.type = token;
         strcat(tmpline.type, "\0");
+
     }
 
 }
 
-rWord CreateEmptyWord(){
-    rWord myWord;
-    myWord.nbElts=0;
-    return myWord;
-}
 
 
-t_letter randomNumber(t_letter myLetter){
-    int nbr=0;
+t_node randomNumber(t_node myLetter){
+    int nbr;
     nbr = (rand() % myLetter.nbNext);
-    return myLetter.next[nbr];
+    return *(myLetter.next[nbr]);
 }
 
-void findWord(t_letter myLetter){
-    if(myLetter.next!=NULL)
+listeFlechi findWord(t_node arbre){
+    if (arbre.nbNext != 0){
+        if (arbre.liste != NULL) {
+            int nbr;
+            nbr = (rand() % 2);
+            if (nbr==0){
+                return *(arbre.liste);
+            }
+        }
+        return findWord(randomNumber(arbre));
+    }
+    return *(arbre.liste);
 }
