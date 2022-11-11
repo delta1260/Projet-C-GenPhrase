@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 char* readfile(char *name) {
     FILE *file;
     file = fopen(name, "r");
@@ -25,17 +26,40 @@ char* readfile(char *name) {
     return "";
 }
 
-void splittext(char* text, arbre* tree){
+void splittext(char* text){
     int i;
     line tmpline;
-    char *token;
+    char *token = "";
+    tmpline.flechie = malloc(30*sizeof(char));
+    tmpline.base = malloc(30*sizeof(char));
+    tmpline.type = malloc(30*sizeof(char));
     while (token != NULL) {
         token = strtok(text, "\t");
         tmpline.flechie = token;
+        strcat(tmpline.flechie, "\0");
         token = strtok(NULL, "\t");
         tmpline.base = token;
+        strcat(tmpline.base, "\0");
         token = strtok(NULL, "\n");
         tmpline.type = token;
+        strcat(tmpline.type, "\0");
     }
-    //void addtostruct(tmpline)
+
+}
+
+rWord CreateEmptyWord(){
+    rWord myWord;
+    myWord.nbElts=0;
+    return myWord;
+}
+
+
+t_letter randomNumber(t_letter myLetter){
+    int nbr=0;
+    nbr = (rand() % myLetter.nbNext);
+    return myLetter.next[nbr];
+}
+
+void findWord(t_letter myLetter){
+    if(myLetter.next!=NULL)
 }
