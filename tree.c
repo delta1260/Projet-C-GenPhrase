@@ -13,9 +13,9 @@ t_node newNode(char c) {
 	return new;
 }
 
-listeFlechi addWord(t_node* pn, char* word,x) {
-	if (word[x] != '/0') {
-		int n=1
+listeFlechi* addWord(p_node pn, char* word) {
+	if (word[0] != '\0') {
+		int n = 1;
 		while (pn->nbNext >= n && pn->next[n - 1]->letter != word[x]) {
 			n++;
 		}
@@ -23,15 +23,19 @@ listeFlechi addWord(t_node* pn, char* word,x) {
 			t_node new = newNode(word[x]);
 			pn->next[n] = &new;
 			pn->nbNext++;
-			return addWord(&new, word, x + 1);
+			return addWord(&new, word++);
 		}
 		else
-			return addWord(pn->next(n - 1), word, x + 1);
+			return addWord(pn->next[n - 1], word);
 	}
 	else {
-		//listeFlechie truc = appel fonction init fléché
-		//pn->liste = &truc;
-		//return &truc;
+		if (pn->liste = NULL) {
+			listeFlechie list;
+			pn->liste = &list;
+			return &list;
+		}
+		else
+			return pn->liste;
 	}
 }
 
