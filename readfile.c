@@ -26,10 +26,11 @@ char* readfile(char *name) {
     return "";
 }
 
-void splittext(char* text){
+void splittext(char* text,allTree arbre){
     int i;
     line tmpline;
     char *token = "";
+    listeFlechi* lst;
     tmpline.flechie = malloc(30*sizeof(char));
     tmpline.base = malloc(30*sizeof(char));
     tmpline.type = malloc(30*sizeof(char));
@@ -43,7 +44,16 @@ void splittext(char* text){
         token = strtok(NULL, "\n");
         tmpline.type = token;
         strcat(tmpline.type, "\0");
-
+        switch (tmpline.type[2]) {
+            case('r'):
+                lst = addWord(arbre.verbe, tmpline.base);
+            case('m'):
+                lst = addWord(arbre.nom, tmpline.base);
+            case('v'):
+                lst = addWord(arbre.adverbe, tmpline.base);
+            case('j'):
+                lst = addWord(arbre.adj, tmpline.base);
+        }
     }
 
 }
