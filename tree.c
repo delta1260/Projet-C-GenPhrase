@@ -4,33 +4,51 @@
 
 #include "tree.h"
 
-t_node newNode(char c) {
-    t_node new;
-    new.letter = c;
-    new.liste = NULL;
-    new.nbNext = 0;
-    new.next = (p_node*)malloc(26 * sizeof(p_node));
+p_node newNode(char c) {
+    p_node new = malloc(sizeof(t_node));
+    new->letter = c;
+    new->liste = NULL;
+    new->nbNext = 0;
+    new->next = (p_node*)malloc(26 * sizeof(p_node));
     return new;
 }
 
-listeFlechi addWord(t_node* pn, char* word,int x) {
-    if (word[x] != '\0') {
-        int n=1;
-        while (pn->nbNext >= n && pn->next[n - 1]->letter != word[x]) {
+allTree initTree() {
+    allTree tree;
+    p_node new = newNode(' ');
+    tree.nom = new;
+    new = newNode(' ');
+    tree.verbe = new;
+    new = newNode(' ');
+    tree.adj = new;
+    new = newNode(' ');
+    tree.adverbe = new;
+    return tree;
+}
+
+listeFlechi* addWord(p_node pn, char* word) {
+    if (word[0] != '\0') {
+        int n = 1;
+        while (pn->nbNext >= n && pn->next[n - 1]->letter != word[0]) {
             n++;
         }
         if (pn->nbNext == 0 || pn->nbNext < n) {
-            t_node new = newNode(word[x]);
-            pn->next[n] = &new;
+
+            p_node new = newNode(word[0]);
+            pn->next[n-1] = new;
             pn->nbNext++;
-            return addWord(&new, word, x + 1);
+            return addWord(new, word + 1);
         }
         else
-            return addWord(pn->next[n - 1], word, x + 1);
+            return addWord(pn->next[n - 1], word + 1);
     }
     else {
-        //listeFlechie truc = appel fonction init fléché
-        //pn->liste = &truc;
-        //return &truc;
+        if (pn->liste == NULL) {
+            listeFlechi* list = malloc(sizeof(listeFlechi));
+            pn->liste = list;
+            return list;
+        }
+        else
+            return pn->liste;
     }
 }

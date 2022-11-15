@@ -14,6 +14,7 @@ motFlechi initmotf(char* mot, char* personne, char* nombre, char* temps){
     nouvmot.personne = personne;
     nouvmot.nombre = nombre;
     nouvmot.temps = temps;
+    return nouvmot;
 }
 
 void addmf(listeFlechi* liste, motFlechi mot){

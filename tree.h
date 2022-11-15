@@ -16,19 +16,16 @@ struct s_node {
 
 typedef struct s_node t_node, *p_node;
 
-typedef struct {
-    int nbRoot;
-    p_node* root;
-}tree;
 
 typedef struct {
-    tree adj;
-    tree nom;
-    tree adverbe;
-    tree verbe;
+    p_node adj;
+    p_node nom;
+    p_node adverbe;
+    p_node verbe;
 } allTree;
 
-t_node newNode(char c);
-listeFlechi addWord(t_node* pn, char* word, x);
+p_node newNode(char c);
+allTree initTree();
+listeFlechi* addWord(p_node pn, char* word);
 
 #endif //MAIN_C_TREE_H

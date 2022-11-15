@@ -27,10 +27,9 @@ char* readfile(char *name) {
 }
 
 void splittext(char* text,allTree arbre){
-    int i;
     line tmpline;
-    char *token = "";
-    listeFlechi* lst;
+    char *token = malloc(30*sizeof(char));
+    listeFlechi* lst = malloc(30*sizeof(listeFlechi));
     tmpline.flechie = malloc(30*sizeof(char));
     tmpline.base = malloc(30*sizeof(char));
     tmpline.type = malloc(30*sizeof(char));

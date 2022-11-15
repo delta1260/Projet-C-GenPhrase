@@ -16,7 +16,7 @@ typedef struct {
 } line;
 
 char* readfile(char* name);
-void splittext(char* text);
+void splittext(char* text, allTree arbre);
 
 
 listeFlechi findWord(t_node myLetter);
