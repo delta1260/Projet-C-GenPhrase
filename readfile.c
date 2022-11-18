@@ -137,3 +137,11 @@ int randomWords(p_node node, listeFlechi* lst, int i){
     lst[i] = *node->liste;
     return i;
 }
+
+motFlechi rWord(listeFlechi* lst, int i){
+    int rlistid = (rand() % (i+1));
+    listeFlechi rlist = lst[rlistid];
+    int rwordid = (rand() % rlist.nbmots);
+    motFlechi rword = rlist.tab[rwordid];
+    return rword;
+}

@@ -20,6 +20,7 @@ void splittext(char* text, allTree* arbre);
 
 int randomWords(p_node myLetter, listeFlechi* lst, int i);
 p_node randomLetter(p_node myLetter);
+motFlechi rWord(listeFlechi* lst, int i);
 #define UNTITLED4_READFILE_H
 
 #endif //UNTITLED4_READFILE_H
