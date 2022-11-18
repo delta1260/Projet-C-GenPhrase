@@ -12,7 +12,7 @@ typedef struct{
     char* mot;
     char* personne;
     char* nombre;
-    char* temps;
+    char* tempsgenre;
 } motFlechi;
 
 typedef struct{
@@ -21,6 +21,6 @@ typedef struct{
 } listeFlechi;
 
 void addmf(listeFlechi* liste, motFlechi mot);
-motFlechi initmotf(char* mot, char* personne, char* nombre, char* temps);
+motFlechi initmf(char* mot, char* personne, char* nombre, char* temps);
 
 #endif //MAIN_C_FORMEFLECHIE_H

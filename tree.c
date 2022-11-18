@@ -45,6 +45,7 @@ listeFlechi* addWord(p_node pn, char* word) {
     else {
         if (pn->liste == NULL) {
             listeFlechi* list = malloc(sizeof(listeFlechi));
+            list->nbmots = 0;
             pn->liste = list;
             return list;
         }

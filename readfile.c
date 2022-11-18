@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <ctype.h>
 
 char* readfile(char *name) {
     FILE *file;
@@ -26,55 +26,107 @@ char* readfile(char *name) {
     return "";
 }
 
-void splittext(char* text,allTree arbre){
+void splittext(char* text,allTree* arbre){
+    int flag;
     line tmpline;
-    char *token = malloc(30*sizeof(char));
-    listeFlechi* lst = malloc(30*sizeof(listeFlechi));
-    tmpline.flechie = malloc(30*sizeof(char));
+    char *token;
+    listeFlechi* lst;
     tmpline.base = malloc(30*sizeof(char));
     tmpline.type = malloc(30*sizeof(char));
+    tmpline.mf = initmf("","","","");
+    token = strtok(text, "\t");
     while (token != NULL) {
-        token = strtok(text, "\t");
-        tmpline.flechie = token;
-        strcat(tmpline.flechie, "\0");
+        strcat(token, "\0");
+        tmpline.mf.mot = token;
         token = strtok(NULL, "\t");
+        strcat(token, "\0");
         tmpline.base = token;
-        strcat(tmpline.base, "\0");
-        token = strtok(NULL, "\n");
+        token = strtok(NULL, ":\n");
+        strcat(token, "\0");
         tmpline.type = token;
-        strcat(tmpline.type, "\0");
+
         switch (tmpline.type[2]) {
             case('r'):
-                lst = addWord(arbre.verbe, tmpline.base);
+                flag = 1;
+                while (flag) {
+                    token = strtok(NULL, "+\n");
+                    strcat(token, "\0");
+                    tmpline.mf.tempsgenre = token;
+                    if (tmpline.mf.tempsgenre[0] == 'I' && tmpline.mf.tempsgenre[1] == 'n') {
+                        lst = addWord(arbre->verbe, tmpline.base);
+                        addmf(lst, tmpline.mf);
+                        break;
+                    }
+                    else if (tmpline.mf.tempsgenre[0] == 'P' && tmpline.mf.tempsgenre[1] == 'P')
+                        break;
+                    token = strtok(NULL, "+");
+                    strcat(token, "\0");
+                    tmpline.mf.nombre = token;
+                    token = strtok(NULL, ":\n");
+                    if (!isupper(token[4])) {
+                        flag = 0;
+                    }
+                    strcat(token, "\0");
+                    tmpline.mf.personne = token;
+                    if ((token[0] == 'I' && token[1] == 'I') || (token[0] == 'I' && token[1] == 'P') ||
+                        (token[0] == 'S' && token[1] == 'P')) {
+                        lst = addWord(arbre->verbe, tmpline.base);
+                        addmf(lst, tmpline.mf);
+                    }
+                }
+                break;
             case('m'):
-                lst = addWord(arbre.nom, tmpline.base);
+                token = strtok(NULL, "+");
+                strcat(token, "\0");
+                tmpline.mf.tempsgenre = token;
+                token = strtok(NULL, "\n");
+                strcat(token, "\0");
+                tmpline.mf.nombre = token;
+                lst = addWord(arbre->nom, tmpline.base);
+                addmf(lst, tmpline.mf);
+                break;
             case('v'):
-                lst = addWord(arbre.adverbe, tmpline.base);
+                lst = addWord(arbre->adverbe, tmpline.base);
+                addmf(lst, tmpline.mf);
+                break;
             case('j'):
-                lst = addWord(arbre.adj, tmpline.base);
+                token = strtok(NULL, "+");
+                strcat(token, "\0");
+                tmpline.mf.tempsgenre = token;
+                token = strtok(NULL, "\n");
+                strcat(token, "\0");
+                tmpline.mf.nombre = token;
+                lst = addWord(arbre->adj, tmpline.base);
+                addmf(lst, tmpline.mf);
+                break;
+
+
         }
+
+        tmpline.mf.nombre = "";
+        tmpline.mf.tempsgenre = "";
+        tmpline.mf.personne = "";
+
+        token = strtok(NULL, "\t");
     }
 
 }
 
 
-
-t_node randomNumber(t_node myLetter){
+p_node randomLetter(p_node myLetter){
     int nbr;
-    nbr = (rand() % myLetter.nbNext);
-    return *(myLetter.next[nbr]);
+    nbr = (rand() % myLetter->nbNext);
+    return (myLetter->next[nbr]);
 }
 
-listeFlechi findWord(t_node arbre){
-    if (arbre.nbNext != 0){
-        if (arbre.liste != NULL) {
-            int nbr;
-            nbr = (rand() % 2);
-            if (nbr==0){
-                return *(arbre.liste);
-            }
+int randomWords(p_node node, listeFlechi* lst, int i){
+    if (node->nbNext != 0){
+        if (node->liste != NULL) {
+            lst[i] = *node->liste;
+            return randomWords(randomLetter(node), lst, i + 1);
         }
-        return findWord(randomNumber(arbre));
+        return randomWords(randomLetter(node), lst, i);
     }
-    return *(arbre.liste);
+    lst[i] = *node->liste;
+    return i;
 }
