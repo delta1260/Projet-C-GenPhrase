@@ -17,7 +17,7 @@ typedef struct{
 
 typedef struct{
     int nbmots;
-    motFlechi tab[20];
+    motFlechi tab[50];
 } listeFlechi;
 
 void addmf(listeFlechi* liste, motFlechi mot);

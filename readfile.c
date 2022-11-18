@@ -44,9 +44,11 @@ void splittext(char* text,allTree* arbre){
         token = strtok(NULL, ":\n");
         strcat(token, "\0");
         tmpline.type = token;
-
+        //printf("mot:%s type:%s\n",tmpline.mf.mot, tmpline.type);
         switch (tmpline.type[2]) {
             case('r'):
+                if (tmpline.type[1] == 'b')
+                    break;
                 flag = 1;
                 while (flag) {
                     token = strtok(NULL, "+\n");
@@ -57,17 +59,20 @@ void splittext(char* text,allTree* arbre){
                         addmf(lst, tmpline.mf);
                         break;
                     }
-                    else if (tmpline.mf.tempsgenre[0] == 'P' && tmpline.mf.tempsgenre[1] == 'P')
+                    else if (tmpline.mf.tempsgenre[0] == 'P' && tmpline.mf.tempsgenre[1] == 'P') {
+                        token = strtok(NULL, "\n");
                         break;
+                    }
                     token = strtok(NULL, "+");
                     strcat(token, "\0");
                     tmpline.mf.nombre = token;
                     token = strtok(NULL, ":\n");
-                    if (!isupper(token[4])) {
+                    if (!isupper(token[4]) && !isupper(token[3])) {
                         flag = 0;
                     }
                     strcat(token, "\0");
                     tmpline.mf.personne = token;
+                    //printf("->conjug: %s %s %s\n", tmpline.mf.tempsgenre, tmpline.mf.nombre, tmpline.mf.personne);
                     if ((token[0] == 'I' && token[1] == 'I') || (token[0] == 'I' && token[1] == 'P') ||
                         (token[0] == 'S' && token[1] == 'P')) {
                         lst = addWord(arbre->verbe, tmpline.base);
@@ -99,7 +104,9 @@ void splittext(char* text,allTree* arbre){
                 lst = addWord(arbre->adj, tmpline.base);
                 addmf(lst, tmpline.mf);
                 break;
-
+            default:
+                token = strtok(NULL, "\n");
+                break;
 
         }
 
