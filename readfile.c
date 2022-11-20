@@ -56,6 +56,10 @@ void splittext(char* text,allTree* arbre){
                     tmpline.mf.tempsgenre = token;
                     if (tmpline.mf.tempsgenre[0] == 'I' && tmpline.mf.tempsgenre[1] == 'n') {
                         lst = addWord(arbre->verbe, tmpline.base);
+                        if (!strcmp(tmpline.mf.mot,tmpline.base)){
+                            lst->base = malloc(30*sizeof(char));
+                            lst->base = tmpline.base;
+                        }
                         addmf(lst, tmpline.mf);
                         break;
                     }
@@ -88,10 +92,18 @@ void splittext(char* text,allTree* arbre){
                 strcat(token, "\0");
                 tmpline.mf.nombre = token;
                 lst = addWord(arbre->nom, tmpline.base);
+                if (!strcmp(tmpline.mf.mot,tmpline.base)){
+                    lst->base = malloc(30*sizeof(char));
+                    lst->base = tmpline.base;
+                }
                 addmf(lst, tmpline.mf);
                 break;
             case('v'):
                 lst = addWord(arbre->adverbe, tmpline.base);
+                if (!strcmp(tmpline.mf.mot,tmpline.base)){
+                    lst->base = malloc(30*sizeof(char));
+                    lst->base = tmpline.base;
+                }
                 addmf(lst, tmpline.mf);
                 break;
             case('j'):
@@ -102,6 +114,10 @@ void splittext(char* text,allTree* arbre){
                 strcat(token, "\0");
                 tmpline.mf.nombre = token;
                 lst = addWord(arbre->adj, tmpline.base);
+                if (!strcmp(tmpline.mf.mot,tmpline.base)){
+                    lst->base = malloc(30*sizeof(char));
+                    lst->base = tmpline.base;
+                }
                 addmf(lst, tmpline.mf);
                 break;
             default:

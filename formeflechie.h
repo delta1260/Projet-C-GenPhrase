@@ -16,6 +16,7 @@ typedef struct{
 } motFlechi;
 
 typedef struct{
+    char* base;
     int nbmots;
     motFlechi tab[50];
 } listeFlechi;

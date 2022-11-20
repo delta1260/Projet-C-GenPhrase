@@ -9,5 +9,6 @@ int main() {
     char* text = readfile("dictionnaire_non_accentue.txt");
     splittext(text, &TREE);
     int i = randomWords(TREE.adj, lst, 0);
-    printf(rWord(lst, i).mot);
+    printf("mot:%s\n", rWord(lst, i).mot);
+    printf("base:%s\n",lst->base);
 }
